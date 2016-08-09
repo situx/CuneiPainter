@@ -13,4 +13,4 @@ The app recognizes the four stroke types of cuneiform as defined by the [Gottste
 
 Wedges are recognized as class C and not as class E as also suggested by Gottstein.
 
-
+This app uses the Akkadian font by [Andrea Vianello](www.bronzeage.org.uk/ancient-fonts.aspx) as provided in the Open Source package [ttf-ancient-fonts](https://packages.debian.org/sid/ttf-ancient-fonts) 
