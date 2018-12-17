@@ -1,15 +1,13 @@
 package com.github.situx.cunei;
 
 import android.app.Activity;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.*;
+import android.view.*;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,9 +85,20 @@ public class CuneiPainter extends Activity {
     }
 
     @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                this.mv.clearCanvas();
+                this.clear();
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
-        this.mv.clearCanvas();
-        this.clear();
+        this.mv.undoPath();
+
     }
 
     /**
@@ -101,6 +110,11 @@ public class CuneiPainter extends Activity {
         this.mv.c=0;
         this.mv.d=0;
         this.mv.s=0;
+        this.mv.down=0;
+        this.mv.up=0;
+        this.mv.left=0;
+        this.mv.right=0;
+        this.mv.paleocodage="";
         this.resultList.setAdapter(new ResultAdapter(this,new LinkedList<Tuple<String,String>>()));
         this.setStatusText();
     }
@@ -109,7 +123,7 @@ public class CuneiPainter extends Activity {
      * Sets the status text indicating the four strokes.
      */
     void setStatusText(){
-        this.statusText.setText("A: "+this.mv.a+" B: "+this.mv.b+" C: "+this.mv.c+" D: "+this.mv.d+" Strokes: "+this.mv.s);
+    this.statusText.setText("A: "+this.mv.a+" B: "+this.mv.b+" C: "+this.mv.c+" D: "+this.mv.d+" Strokes: "+this.mv.s/*+" Paleocodage: "+this.mv.paleocodage*/);
     }
 
     /**
@@ -117,20 +131,24 @@ public class CuneiPainter extends Activity {
      */
     void lookUp(){
         StringBuilder queryStr=new StringBuilder();
-        if(this.mv.a>0){
-             queryStr.append("a").append(this.mv.a);
+        if(this.mv.a==0 && this.mv.b==0 && this.mv.c==0 && this.mv.d==0){
+            this.resultList.setAdapter(new ResultAdapter(this,new LinkedList<Tuple<String,String>>()));
+        }else {
+            if (this.mv.a > 0) {
+                queryStr.append("a").append(this.mv.a);
+            }
+            if (this.mv.b > 0) {
+                queryStr.append("b").append(this.mv.b);
+            }
+            if (this.mv.c > 0) {
+                queryStr.append("c").append(this.mv.c);
+            }
+            if (this.mv.d > 0) {
+                queryStr.append("d").append(this.mv.d);
+            }
+            this.resultList.setAdapter(new ResultAdapter(this, this.lookUpMap.get(queryStr.toString()
+            )));
         }
-        if(this.mv.b>0){
-            queryStr.append("b").append(this.mv.b);
-        }
-        if(this.mv.c>0){
-            queryStr.append("c").append(this.mv.c);
-        }
-        if(this.mv.d>0){
-            queryStr.append("d").append(this.mv.d);
-        }
-        this.resultList.setAdapter(new ResultAdapter(this,this.lookUpMap.get(queryStr.toString()
-        )));
     }
 
     /**
@@ -141,7 +159,7 @@ public class CuneiPainter extends Activity {
         String json = null;
         try {
 
-            InputStream is = getAssets().open("strokes.json");
+            InputStream is = getAssets().open("strokes_gott.json");
 
             int size = is.available();
 
