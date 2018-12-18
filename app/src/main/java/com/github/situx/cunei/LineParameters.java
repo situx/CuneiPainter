@@ -1,21 +1,23 @@
 package com.github.situx.cunei;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by timo on 14.12.18 .
  */
-public class LineParameters {
+public class LineParameters implements Comparable<LineParameters> {
 
-    float startX;
+    Float startX;
 
-    float startY;
+    Float startY;
 
-    float endX;
+    Float endX;
 
-    float endY;
+    Float endY;
 
-    float deltaX;
+    Float deltaX;
 
-    float deltaY;
+    Float deltaY;
 
     StrokeType type;
 
@@ -40,5 +42,10 @@ public class LineParameters {
         this.deltaX=deltaX;
         this.deltaY=deltaY;
         this.type=type;
+    }
+
+    @Override
+    public int compareTo(@NonNull LineParameters o) {
+        return this.startX.compareTo(o.startX);
     }
 }

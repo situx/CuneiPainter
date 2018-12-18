@@ -123,7 +123,7 @@ public class CuneiPainter extends Activity {
      * Sets the status text indicating the four strokes.
      */
     void setStatusText(){
-    this.statusText.setText("A: "+this.mv.a+" B: "+this.mv.b+" C: "+this.mv.c+" D: "+this.mv.d+" Strokes: "+this.mv.s/*+" Paleocodage: "+this.mv.paleocodage*/);
+    this.statusText.setText("A: "+this.mv.a+" B: "+this.mv.b+" C: "+this.mv.c+" D: "+this.mv.d+" Strokes: "+this.mv.s+" Paleocodage: "+this.mv.paleocodage);
     }
 
     /**

@@ -89,20 +89,23 @@ public class DrawingCanvas extends View {
         }
 
         public void undoPath(){
-            if(!this.paths.isEmpty()) {
+            if(!this.paths.isEmpty() && !strokes.isEmpty()) {
                 undonepaths.add(this.paths.remove(this.paths.size() - 1));
                 invalidate();
+                s--;
+                switch(strokes.get(strokes.size()-1)){
+                    case "a":--a;break;
+                    case "b":--b;break;
+                    case "c":--c;break;
+                    case "d":--d;break;
+                }
+                strokes.remove(strokes.size()-1);
+                this.lines.remove(lines.size()-1);
+                this.paleocodage=LocationCalc.calculateRelation(this.lines);
+                this.context.setStatusText();
+                this.context.lookUp();
             }
-            s--;
-            switch(strokes.get(strokes.size()-1)){
-                case "a":--a;break;
-                case "b":--b;break;
-                case "c":--c;break;
-                case "d":--d;break;
-            }
-            strokes.remove(strokes.size()-1);
-            this.context.setStatusText();
-            this.context.lookUp();
+
         }
 
         public void redoPath(){
@@ -132,6 +135,8 @@ public class DrawingCanvas extends View {
                 p.reset();
             }
             this.paths.clear();
+            this.paleocodage="";
+            this.lines.clear();
             invalidate();
         }
 
@@ -154,12 +159,16 @@ public class DrawingCanvas extends View {
                 strokes.add("a");
                 if(startY>mY){
                     up++;
-                    paleocodage+="!a-";
-                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.INV_A));
+
+                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.INV_A));                               paleocodage=LocationCalc.calculateRelation(lines);
+                    //paleocodage+="!a-";
+
                 }else{
                     down++;
-                    paleocodage+="a-";
                     this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.A));
+                    paleocodage=LocationCalc.calculateRelation(lines);
+                    //paleocodage+="a-";
+
                 }
                 this.context.setStatusText();
             }else if(radius>-30 && radius<30){
@@ -168,20 +177,24 @@ public class DrawingCanvas extends View {
                 strokes.add("b");
                 if(startX>mX){
                     left++;
-                    paleocodage+="!b-";
+                    //paleocodage+="!b-";
                     /*mPath.moveTo(startX+40, startY+50);
                     mPath.lineTo(startX+40, startY+50);
                     mPath.lineTo(startX, startY+45);
                     mPath.lineTo(startX+40, startY+50);*/
                     this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.INV_B));
+                    paleocodage=LocationCalc.calculateRelation(lines);
+
                 }else{
-                    paleocodage+="b-";
+                    //paleocodage+="b-";
+                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.B));
+                    paleocodage=LocationCalc.calculateRelation(lines);
                     right++;
                     /*mPath.moveTo(startX-40, startY+50);
                     mPath.lineTo(startX-40, startY+45);
                     mPath.lineTo(startX, startY+45);
                     mPath.lineTo(startX+40, startY+40);*/
-                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.B));
+
                 }
                 this.context.setStatusText();
             }else if(radius<-30 && radius>-170){
@@ -190,16 +203,20 @@ public class DrawingCanvas extends View {
                 strokes.add("d");
                 if(startY>mY){
                     up++;
-                    paleocodage+="c-";
+                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.C));
+                    paleocodage=LocationCalc.calculateRelation(lines);
+                    //paleocodage+="c-";
                     /*mPath.moveTo(startX+50, startY+50);
                     mPath.lineTo(startX+50, startY);
                     mPath.lineTo(startX, startY+50);
                     mPath.lineTo(startX+50, startY+50);*/
-                    this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.C));
+
                 }else{
                     down++;
-                    paleocodage+="d-";
+                    //paleocodage+="d-";
                     this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.D));
+                    paleocodage=LocationCalc.calculateRelation(lines);
+
                     /*mPath.moveTo(startX, startY);
                     mPath.lineTo(startX, startY+50);
                     mPath.lineTo(startX-50, startY);
@@ -211,18 +228,21 @@ public class DrawingCanvas extends View {
                 ++c;
                 strokes.add("c");
                 if(startY>mY){
-                    paleocodage+="e-";
+                    //paleocodage+="e-";
                     this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.E));
+                    paleocodage=LocationCalc.calculateRelation(lines);
                     up++;
                 }else{
                     down++;
-                    paleocodage+="f-";
+                    //paleocodage+="f-";
                     this.lines.add(new LineParameters(startX,startY,mX,mY,delta_x,delta_y,StrokeType.F));
+                    paleocodage=LocationCalc.calculateRelation(lines);
+
                 }
                 this.context.setStatusText();
 
             }
-            System.out.println(LocationCalc.calculateRelation(lines,lines.get(lines.size()-1)));
+            //System.out.println(LocationCalc.calculateRelation(lines,lines.get(lines.size()-1)));
             this.context.lookUp();
             this.mCanvas.drawPath(mPath,mPaint);
             paths.add(mPath);
