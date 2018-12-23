@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.github.situx.cunei.LocationCalc.stroketypeLength;
+
 /**
  * Canvas for drawing lines that indicate cuneiform characters.
  */
@@ -94,10 +96,10 @@ public class DrawingCanvas extends View {
                 invalidate();
                 s--;
                 switch(strokes.get(strokes.size()-1)){
-                    case "a":--a;break;
-                    case "b":--b;break;
-                    case "c":--c;break;
-                    case "d":--d;break;
+                    case "a":--a;stroketypeLength.get(StrokeType.A).remove(stroketypeLength.get(StrokeType.A).size()-1);break;
+                    case "b":--b;stroketypeLength.get(StrokeType.B).remove(stroketypeLength.get(StrokeType.B).size()-1);break;
+                    case "c":--c;stroketypeLength.get(StrokeType.C).remove(stroketypeLength.get(StrokeType.C).size()-1);break;
+                    case "d":--d;stroketypeLength.get(StrokeType.D).remove(stroketypeLength.get(StrokeType.D).size()-1);break;
                 }
                 strokes.remove(strokes.size()-1);
                 this.lines.remove(lines.size()-1);
@@ -137,6 +139,7 @@ public class DrawingCanvas extends View {
             this.paths.clear();
             this.paleocodage="";
             this.lines.clear();
+            stroketypeLength.clear();
             invalidate();
         }
 
