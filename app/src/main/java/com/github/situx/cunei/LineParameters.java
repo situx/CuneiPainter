@@ -46,6 +46,10 @@ public class LineParameters implements Comparable<LineParameters> {
 
     @Override
     public int compareTo(@NonNull LineParameters o) {
-        return this.startX.compareTo(o.startX);
+        int compared=this.startX.compareTo(o.startX);
+        if(compared==0){
+            return this.startY.compareTo(o.startY);
+        }
+        return compared;
     }
 }
