@@ -25,7 +25,7 @@ env:
     - MALLOC_ARENA_MAX=2
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
-    - GH_REPO_NAME: rdfproxy
+    - GH_REPO_NAME: CuneiPainter
     - DOXYFILE: $TRAVIS_BUILD_DIR/docs/Doxyfile
     - GH_REPO_REF: github.com/situx/CuneiPainter.git
 
