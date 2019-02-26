@@ -1,13 +1,23 @@
-language: java
-jdk: oraclejdk8
+language: android
+
+android:
+  components:
+    - platform-tools
+    - extra-android-m2repository
+    - build-tools-27.0.3
+    - android-28
+    - sys-img-armeabi-v7a-android-28
+
+script:
+  - ./gradlew assemble lint
 
   # This will run on Travis' 'new' container-based infrastructure
 sudo: false
 
 # Blacklist
 branches:
-  except:
-    - gh-pages
+  only:
+    - master
  
 env:
   global:
