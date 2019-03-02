@@ -29,7 +29,8 @@ script:
   - mkdir html/docs
   - mv html/*.* html/docs
   - cp _config.yml html/
-  - cp index.html html/  
+  - cp index.html html/
+  - cp stylesheet.css html/ 
 
 deploy:
   provider: pages
