@@ -27,7 +27,7 @@ script:
   - cd docs
   - doxygen Doxyfile
   - mkdir html/docs
-  - mkdir html/docs/stylesheets
+  - mkdir html/stylesheets
   - mv html/*.* html/docs
   - cp _config.yml html/
   - cp index.html html/
