@@ -28,6 +28,8 @@ script:
   - doxygen Doxyfile
   - mkdir html/docs
   - mv html/*.* html/docs
+  - cp _config.yml html/*
+  - cp ../Readme.md html/index.md  
 
 deploy:
   provider: pages
