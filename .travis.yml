@@ -27,7 +27,7 @@ script:
   - cd docs
   - doxygen Doxyfile
   - mkdir html/docs
-  - mv html/* html/docs
+  - mv html/*.* html/docs
 
 deploy:
   provider: pages
