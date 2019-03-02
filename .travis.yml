@@ -27,10 +27,11 @@ script:
   - cd docs
   - doxygen Doxyfile
   - mkdir html/docs
+  - mkdir html/docs/stylesheets
   - mv html/*.* html/docs
   - cp _config.yml html/
   - cp index.html html/
-  - cp stylesheet.css html/ 
+  - cp stylesheet.css html/stylesheets/ 
 
 deploy:
   provider: pages
