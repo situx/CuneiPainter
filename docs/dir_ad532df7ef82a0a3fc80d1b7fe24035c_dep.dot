@@ -1,0 +1,15 @@
+digraph "src" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_97cdb22344a971bf2901331bfad65e47 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="app" fontname="Helvetica", fontsize="10", URL="dir_97cdb22344a971bf2901331bfad65e47.html"]
+  subgraph clusterdir_ad532df7ef82a0a3fc80d1b7fe24035c {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_ad532df7ef82a0a3fc80d1b7fe24035c.html"];
+    dir_ad532df7ef82a0a3fc80d1b7fe24035c [shape=plaintext label="src"];
+    dir_d7c6134de117b6cc7c842c321459fe6e [shape=box label="androidTest" color="red" fillcolor="white" style="filled" URL="dir_d7c6134de117b6cc7c842c321459fe6e.html"];
+    dir_7c9f7f592d4a4166fc592d6598d0bd04 [shape=box label="main" color="red" fillcolor="white" style="filled" URL="dir_7c9f7f592d4a4166fc592d6598d0bd04.html"];
+    dir_24d8659ee6563e81a739295c5af297fb [shape=box label="test" color="red" fillcolor="white" style="filled" URL="dir_24d8659ee6563e81a739295c5af297fb.html"];
+  }
+  }
+}
