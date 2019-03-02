@@ -14,33 +14,23 @@ script:
   # This will run on Travis' 'new' container-based infrastructure
 sudo: false
 
-# Blacklist
 branches:
   only:
     - master
- 
-env:
-  global:
-    # switch glibc to a memory conserving mode
-    - MALLOC_ARENA_MAX=2
-    # wait up to 10 minutes for adb to connect to emulator
-    - ADB_INSTALL_TIMEOUT=10
-    - GH_REPO_NAME: CuneiPainter
-    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/Doxyfile
-    - GH_REPO_REF: github.com/situx/CuneiPainter.git
 
-# Install dependencies
 addons:
   apt:
     packages:
       - doxygen
-      - doxygen-doc
-      - doxygen-latex
-      - doxygen-gui
-      - graphviz
 
-# Generate and deploy documentation
-after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentationAndDeploy.sh
-  - ./generateDocumentationAndDeploy.sh
+script:
+  - cd docs
+  - doxygen Doxyfile
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs/html
+  github_token: $GH_REPO_TOKEN
+  on:
+    branch: master
