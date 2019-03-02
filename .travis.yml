@@ -22,6 +22,8 @@ addons:
   apt:
     packages:
       - doxygen
+      - ttf-freefont 
+      - graphviz
 
 script:
   - cd docs
