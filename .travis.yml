@@ -26,8 +26,8 @@ addons:
 script:
   - cd docs
   - doxygen Doxyfile
-  - mkdir docs/html/docs
-  - mv docs/html/* docs/html/docs
+  - mkdir html/docs
+  - mv html/* html/docs
 
 deploy:
   provider: pages
